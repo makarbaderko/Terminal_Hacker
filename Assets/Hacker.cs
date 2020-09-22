@@ -8,7 +8,7 @@ public class Hacker : MonoBehaviour
     private int level;
 
     enum Screen { MainMenu, Password, Win };
-    Screen current_screen = Screen.MainMenu;
+    Screen currentScreen = Screen.MainMenu;
 
 
     void ShowMainMenu(string name)
@@ -21,7 +21,18 @@ public class Hacker : MonoBehaviour
             "Press 3 for  NASA\n\n" +
             "Enter your selection:");
     }
+    //this should only decide who to handle the input, not to do
     void OnUserInput(string input)
+    {
+        if (input == "menu") //user can always go to the menu
+        {
+            Terminal.ClearScreen();
+            ShowMainMenu("Makar");
+        } else if (currentScreen == Screen.MainMenu) //If tou are in the menu, you can select the level
+            RunMainMenu(input);
+    }
+
+    private void RunMainMenu(string input)
     {
         if (input == "1")
         {
@@ -41,22 +52,20 @@ public class Hacker : MonoBehaviour
         }
         else if (input == "007")
         {
+            //Easter Egg
             Terminal.ClearScreen();
             ShowMainMenu("James Bond!");
-        }
-        else if (input == "menu")
-        {
-            Terminal.ClearScreen();
-            ShowMainMenu("Makar");
+
         }
         else
         {
             Terminal.WriteLine("Write valid input");
         }
     }
+
     void StartGame()
     {
-        current_screen = Screen.Password;
+        currentScreen = Screen.Password;
         Terminal.WriteLine("You have chosen level " + level);
         Terminal.WriteLine("Please, enter your password:");
     }

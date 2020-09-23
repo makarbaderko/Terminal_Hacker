@@ -7,6 +7,7 @@ public class Hacker : MonoBehaviour
 {
     // Game configuration data
     string[] level1Passwords = { "books", "aisle", "self", "password", "font", "borrows"};
+    string[] level2Passwords = { "police", "gun", "holster", "arrest", "prison", "judge" };
 
     //Game State
     private int level;
@@ -22,8 +23,7 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Hello " + name);
         Terminal.WriteLine("Where would you like to hack into?\n\n" +
             "Press 1 for the local library\n" +
-            "Press 2 for the police station\n" +
-            "Press 3 for  NASA\n\n" +
+            "Press 2 for the police station\n\n" +
             "Enter your selection:");
     }
     //this should only decide who to handle the input, not to do
@@ -57,22 +57,10 @@ public class Hacker : MonoBehaviour
 
     private void RunMainMenu(string input)
     {
-        if (input == "1")
+        bool isValidNumber = (input == "1" || input == "2");
+        if (isValidNumber)
         {
-            level = 1;
-            password = "donkey";
-            StartGame();
-        }
-        else if (input == "2")
-        {
-            level = 2;
-            password = "combobulate";
-            StartGame();
-        }
-        else if (input == "3")
-        {
-            level = 3;
-            password = "astronaut";
+            level = int.Parse(input);
             StartGame();
         }
         else if (input == "007")
@@ -91,7 +79,20 @@ public class Hacker : MonoBehaviour
     void StartGame()
     {
         currentScreen = Screen.Password;
-        Terminal.WriteLine("You have chosen level " + level);
+        Terminal.ClearScreen();
+        switch (level)
+        {
+            case 1:
+                password = level1Passwords[0];
+                break;
+            case 2:
+                password = level2Passwords[0];
+                break;
+            default:
+                Debug.LogError("Invaid level number");
+                break;
+
+        }
         Terminal.WriteLine("Please, enter your password:");
     }
     // Start is called before the first frame update

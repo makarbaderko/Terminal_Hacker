@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour
 {
+    // Game configuration data
+    string[] level1Passwords = { "books", "aisle", "self", "password", "font", "borrows"};
+
     //Game State
     private int level;
     private string password;
@@ -28,6 +31,7 @@ public class Hacker : MonoBehaviour
     {
         if (input == "menu") //user can always go to the menu
         {
+            currentScreen = Screen.MainMenu;
             Terminal.ClearScreen();
             ShowMainMenu("Makar");
         }
